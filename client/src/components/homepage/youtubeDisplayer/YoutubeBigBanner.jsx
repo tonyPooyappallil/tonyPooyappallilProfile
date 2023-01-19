@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const OuterContainer = styled.div`
@@ -19,32 +20,26 @@ const LinkImageContainer = styled.div`
 const YoutubeLinkImage = styled.img`
   width: 100%;
 `;
-const Data = [
-  {
-    firstLink: "https://youtu.be/33CIB41GQew",
-    secondLink:
-      "https://i9.ytimg.com/vi/33CIB41GQew/mqdefault.jpg?v=6249c39d&sqp=CIj_o54G&rs=AOn4CLAtHRPJ4N10bfz7PQbRMLstgUBWQA",
-  },
-  {
-    firstLink: "https://youtu.be/33CIB41GQew",
-    secondLink:
-      "https://i9.ytimg.com/vi/33CIB41GQew/mqdefault.jpg?v=6249c39d&sqp=CIj_o54G&rs=AOn4CLAtHRPJ4N10bfz7PQbRMLstgUBWQA",
-  },
-  {
-    firstLink: "https://youtu.be/33CIB41GQew",
-    secondLink:
-      "https://i9.ytimg.com/vi/33CIB41GQew/mqdefault.jpg?v=6249c39d&sqp=CIj_o54G&rs=AOn4CLAtHRPJ4N10bfz7PQbRMLstgUBWQA",
-  },
-];
+
 export default function YoutubeBigBanner() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/videos")
+      .then((results) => results.json())
+      .then((data) => {
+        setData(data.data);
+      });
+  }, []);
+  console.log(data);
   return (
     <>
       <OuterContainer>
         <LinkImageFelxBox>
-          {Data.map((linkObject) => (
+          {data.map((linkObject) => (
             <LinkImageContainer>
-              <a href={linkObject.firstLink}>
-                <YoutubeLinkImage src={linkObject.secondLink} alt="" />
+              <a href={linkObject.videoLink}>
+                <YoutubeLinkImage src={linkObject.coverImgLink} alt="" />
               </a>
             </LinkImageContainer>
           ))}
