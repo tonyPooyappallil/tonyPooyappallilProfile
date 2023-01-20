@@ -31,7 +31,7 @@ export default function YoutubeBigBanner() {
         setData(data.data);
       });
   }, []);
-  console.log(data);
+
   return (
     <>
       <OuterContainer>
